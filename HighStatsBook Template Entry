@@ -1,0 +1,11 @@
+<3505>
+#High Stats Book
+<type           ITEM 4081>
+<hue            1153>
+<objvar string lookAtText "High Stats Book">
+<objvar int setStr      999>
+<objvar int setDex      999>
+<objvar int setInt      999>
+<objvar int playerOnly  0>
+<script high_stats_book>
+<@@@ END @@@>
