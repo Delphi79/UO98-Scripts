@@ -1,0 +1,14 @@
+<1234>
+#Bag of Crafting Tools
+<type ITEM 3702>
+<objvar string lookAtText "Bag of Crafting Tools">
+<eq SMITH_HAMMER 0 0 1 selfcontained>
+<eq TINKER_TOOLS 0 0 1 selfcontained>
+<eq SAW 0 0 1 selfcontained>
+<eq HAMMER 0 0 1 selfcontained>
+<eq SEWING_KIT 0 0 1 selfcontained>
+<eq SCISSORS 0 0 1 selfcontained>
+<eq MORTAR_PESTLE 0 0 1 selfcontained>
+<eq FLETCHER_TOOLS 0 0 1 selfcontained>
+<eq SKINNING_KNIFE 0 0 1 selfcontained>
+< @@@ END @@@>
