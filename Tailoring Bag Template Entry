@@ -1,0 +1,8 @@
+#Tailoring Bag
+<type ITEM 3702>
+<objvar string lookAtText "Tailoring Bag">
+<eq CLOTH 0 0 999 selfcontained>
+<eq LEATHER 0 0 999 selfcontained>
+<eq SEWING_KIT 0 0 1 selfcontained>
+<eq SCISSORS 0 0 1 selfcontained>
+<@@@ END @@@>
