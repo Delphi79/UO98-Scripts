@@ -1,0 +1,7 @@
+#Smithing Bag
+<type ITEM 3702>
+<objvar string lookAtText "Bag of 999 Iron Ingots">
+<eq IRON_INGOT 0 0 999 selfcontained>
+<eq SMITH_HAMMER 0 0 1 selfcontained>
+<eq TINKER_TOOLS 0 0 1 selfcontained>
+<@@@ END @@@>
