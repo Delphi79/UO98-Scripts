@@ -1,0 +1,9 @@
+<1234>
+#Fletching Bag
+<type ITEM 3702>
+<objvar string lookAtText "Fletching Bag">
+<eq LOGS 0 0 999 selfcontained>
+<eq LOOSE_FEATHERS 0 0 999 selfcontained>
+<eq ARROWS 0 0 999 selfcontained>
+<eq FLETCHER_TOOLS 0 0 1 selfcontained>
+<@@@ END @@@>
