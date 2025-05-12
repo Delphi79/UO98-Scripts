@@ -1,0 +1,8 @@
+<1234>
+#Carpentry Bag
+<type ITEM 3702>
+<objvar string lookAtText "Bag of 999 Logs">
+<eq LOGS 0 0 999 selfcontained>
+<eq SAW 0 0 1 selfcontained>
+<eq HAMMER 0 0 1 selfcontained>
+<@@@ END @@@>
