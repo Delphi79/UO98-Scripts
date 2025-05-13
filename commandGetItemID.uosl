@@ -1,5 +1,10 @@
 // UOSL (Extended)
 // Command script to print the item/type ID of a selected object
+//add the commnd call to your gmcheat.uosl script
+//else if(command == "getitemid")
+//{
+//  attachScript(speaker, "commandGetItemId");
+//}
 
 trigger creation()
 {
