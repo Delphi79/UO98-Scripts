@@ -2,14 +2,12 @@
 #Reagent Bag
 <type ITEM 3702>
 <objvar string lookAtText "Reagent Bag">
-<eq BLACK_PEARL_REAGENT 0 0 999 selfcontained>
-<eq GINSENG_REAGENT 0 0 999 selfcontained>
-<eq GARLIC_REAGENT 0 0 999 selfcontained>
-<eq SPIDER_SILK_REAGENT 0 0 999 selfcontained>
-<eq BLOOD_MOSS_REAGENT 0 0 999 selfcontained>
-<eq NIGHTSHADE_REAGENT 0 0 999 selfcontained>
-<eq MANDRAKE_ROOT_REAGENT 0 0 999 selfcontained>
-<eq SULFUROUS_ASH_REAGENT 0 0 999 selfcontained>
-<eq SPELLBOOK 0 0 1 selfcontained>
-<eq MORTAR_PESTLE 0 0 1 selfcontained>
+<eq BLACK_PEARL_REAGENT 0 0 100 selfcontained>
+<eq GINSENG_REAGENT 0 0 100 selfcontained>
+<eq GARLIC_REAGENT 0 0 100 selfcontained>
+<eq SPIDER_SILK_REAGENT 0 0 100 selfcontained>
+<eq BLOOD_MOSS_REAGENT 0 0 100 selfcontained>
+<eq NIGHTSHADE_REAGENT 0 0 100 selfcontained>
+<eq MANDRAKE_ROOT_REAGENT 0 0 100 selfcontained>
+<eq SULFUROUS_ASH_REAGENT 0 0 100 selfcontained>
 <@@@ END @@@>
