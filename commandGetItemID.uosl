@@ -1,0 +1,18 @@
+// UOSL (Extended)
+// Command script to print the item/type ID of a selected object
+
+trigger creation()
+{
+  // Prompt the GM to select an item
+  systemMessage(this, "Select an item to get its item/type ID.");
+  targetObj(this, this);
+  return(1);
+}
+
+trigger oortargetobj(obj user, obj usedon)
+{
+  int typeid = getObjType(usedon);
+  systemMessage(user, "item id = " + typeid);
+  detachScript(this, "commandGetItemId");
+  return(1);
+} 
