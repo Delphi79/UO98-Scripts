@@ -1,0 +1,1690 @@
+// UOSL (Extended)
+// Authors: ImaNewb
+// Date: 2024-05-13
+// RunUO Style GM commands script
+
+inherits defines;
+
+member string command;
+member int theinteger1;
+member string thestring1;
+member int statToSet;
+member int statValue;
+member int needloc;
+member obj moveTarget;
+member int multiMode;
+
+function string strfromint(int val)
+{
+  string result;
+  result = "" + val;
+  return result;
+}
+
+function int getItemIDByNameBlock1(string name)
+{
+if(name == "gold") return 3821;
+else if(name == "ironingot") return 7154;
+else if(name == "robe") return 7939;
+else if(name == "tinkertools") return 7868;
+else if(name == "fancyshirt") return 7933;
+else if(name == "fancypants") return 5433;
+else if(name == "shirt") return 5399;
+else if(name == "shortpants") return 5422;
+else if(name == "fulldress") return 7935;
+else if(name == "plaindress") return 7937;
+else if(name == "longskirt") return 5398;
+else if(name == "goldbelt") return 5430;
+else if(name == "kilt") return 5431;
+else if(name == "doublet") return 8059;
+else if(name == "jestersuit") return 8095;
+else if(name == "tunic") return 8097;
+else if(name == "floppyhat") return 5907;
+else if(name == "bandana") return 5439;
+else if(name == "skullcap") return 5444;
+else if(name == "apron") return 5435;
+else if(name == "cloak") return 5397;
+else if(name == "cape") return 5397;
+else if(name == "thighboots") return 5905;
+else if(name == "blackboots") return 5899;
+else if(name == "plainshoes") return 5903;
+else if(name == "sandals") return 5901;
+else if(name == "sash") return 5441;
+else if(name == "studdedlegs") return 5082;
+else if(name == "studdedarms") return 5076;
+else if(name == "studdedgloves") return 5077;
+else if(name == "leatherarms") return 5061;
+else if(name == "leatherlegs") return 5067;
+else if(name == "leatherchest") return 5068;
+else if(name == "leathergloves") return 5062;
+else if(name == "ringchest") return 5100;
+else if(name == "ringlegs") return 5104;
+else if(name == "ringarms") return 5102;
+else if(name == "bonechest") return 5199;
+else if(name == "bonelegs") return 5202;
+else if(name == "bonearms") return 5198;
+else if(name == "bonegloves") return 5205;
+else return 0;
+
+}
+
+function int getItemIDByNameBlock2(string name)
+{
+    if(name == "studdedgorget") return 5078;
+else if(name == "platechest") return 5141;
+else if(name == "platearms") return 5143;
+else if(name == "platelegs") return 5137;
+else if(name == "plategloves") return 5140;
+else if(name == "platehelm") return 5138;
+else if(name == "chainchest") return 5055;
+else if(name == "chainlegs") return 5054;
+else if(name == "chaincoif") return 5051;
+else if(name == "bonehelm") return 5201;
+else if(name == "closehelm") return 5128;
+else if(name == "helmet") return 5130;
+else if(name == "bascinet") return 5132;
+else if(name == "nosehelm") return 5134;
+else if(name == "buckethelm") return 5138;
+else if(name == "bronzeshield") return 7026;
+else if(name == "bucklershield") return 7027;
+else if(name == "metalkiteshield") return 7028;
+else if(name == "heatershield") return 7030;
+else if(name == "kiteshield") return 7032;
+else if(name == "woodenshield") return 7034;
+else if(name == "metalshield") return 7035;
+else if(name == "ordershield") return 7108;
+else if(name == "chaosshield") return 7107;
+else if(name == "executionersaxe") return 3909;
+else if(name == "bardiche") return 3917;
+else if(name == "hatchet") return 3907;
+else if(name == "battleaxe") return 3911;
+else if(name == "doublebattleaxe") return 5187;
+else if(name == "blackstaff") return 3568;
+else if(name == "arrow") return 3903;
+else if(name == "arrowshaft") return 7124;
+else if(name == "string1") return 5153;
+else if(name == "bolt") return 7163;
+else if(name == "bow") return 5042;
+else return 0;
+
+}
+
+function int getItemIDByNameBlock3(string name)
+{
+    if(name == "butcherknife") return 5110;
+else if(name == "club") return 5044;
+else if(name == "crossbow") return 3919;
+else if(name == "heavycrossbow") return 5117;
+else if(name == "tongs") return 4027;
+else if(name == "cutlass") return 5185;
+else if(name == "dagger") return 3921;
+else if(name == "gnarledstaff") return 5112;
+else if(name == "halberd") return 5183;
+else if(name == "hammerpick") return 5181;
+else if(name == "kitana") return 5119;
+else if(name == "kryss") return 5121;
+else if(name == "broadsword") return 3934;
+else if(name == "longsword") return 3937;
+else if(name == "vikingsword") return 5049;
+else if(name == "mace") return 3932;
+else if(name == "maul") return 5179;
+else if(name == "meatcleaver") return 3779;
+else if(name == "axe") return 3913;
+else if(name == "warfork") return 5125;
+else if(name == "warhammer") return 5177;
+else if(name == "warmace") return 5127;
+else if(name == "blankmap") return 5355;
+else if(name == "vendordeed") return 5360;
+else if(name == "shipdeed") return 5362;
+else if(name == "rope") return 5368;
+else if(name == "spyglass") return 5365;
+else if(name == "housedeed") return 5360;
+else if(name == "loosefeathers") return 7121;
+else if(name == "backpack") return 3701;
+else if(name == "lantern") return 2597;
+else if(name == "oilflask") return 7192;
+else if(name == "doublenewaxe") return 3915;
+else if(name == "pickaxe") return 3718;
+else return 0;
+
+}
+
+function int getItemIDByNameBlock4(string name)
+{
+if(name == "pitchfork") return 3719;
+else if(name == "quarterstaff") return 3721;
+else if(name == "scimitar") return 5046;
+else if(name == "shepherdcrook") return 5109;
+else if(name == "skinningknife") return 3780;
+else if(name == "smithhammer") return 5091;
+else if(name == "sledgehammer") return 4021;
+else if(name == "shortspear") return 5123;
+else if(name == "spear") return 3938;
+else if(name == "shovel") return 3897;
+else if(name == "twohandedaxe") return 5115;
+else if(name == "waraxe") return 5040;
+else if(name == "table") return 2868;
+else if(name == "throne") return 2867;
+else if(name == "woodenbox") return 3709;
+else if(name == "woodenchest") return 3650;
+else return 0;
+
+}
+
+function int getItemIDByNameBlock5(string name)
+{
+    if(name == "bumpkinstrawhat") return 5908;
+    else if(name == "darbyhat") return 5909;
+    else if(name == "pointyhat") return 5910;
+    else if(name == "bandedstrawhat") return 5911;
+    else if(name == "magehat") return 5912;
+    else if(name == "leathercap") return 5913;
+    else if(name == "turban") return 5914;
+    else if(name == "strawboater") return 5915;
+    else if(name == "jestercap") return 5916;
+    else if(name == "wand1") return 3570;
+    else if(name == "wand2") return 3571;
+    else if(name == "wand3") return 3572;
+    else if(name == "wand4") return 3573;
+    else if(name == "orchelm") return 7947;
+    else if(name == "bearmask") return 5445;
+    else if(name == "deermask") return 5447;
+    else if(name == "orcmask") return 5148;
+    else if(name == "redtribalmask") return 5451;
+    else if(name == "whitetribalmask") return 5449;
+    else if(name == "fullapron") return 5437;
+    else if(name == "femaledtudded") return 7170;
+    else if(name == "femaledplate") return 7172;
+    else if(name == "femaleleather") return 7174;
+    else if(name == "femaleleathershorts") return 7168;
+    else if(name == "leatherskirt") return 7176;
+    else if(name == "leatherbrazier") return 7178;
+    else if(name == "studdedbrazier") return 7180;
+    else if(name == "ringgloves") return 5099;
+    else if(name == "plategorget") return 5139;
+    else if(name == "leathergorget") return 5063;
+    else if(name == "beltpouch") return 3705;
+    else if(name == "bag") return 3702;
+    else if(name == "torch") return 3947;
+    else if(name == "litesrc") return 5703;
+    else if(name == "candle") return 2575;
+    else if(name == "floursack") return 4153;
+    else if(name == "sackflour") return 4153;
+    else if(name == "tinkerkit") return 7864;
+    else if(name == "toolkit") return 7866;
+    else if(name == "lockpick") return 5371;
+    else if(name == "lockpicks") return 5374;
+    else if(name == "copperkey") return 4110;
+    else if(name == "goldkey") return 4111;
+    else if(name == "woodenchest2") return 3651;
+    return 0;
+}
+
+function int getItemIDByNameBlock6(string name)
+{
+    if(name == "ironkey") return 4112;
+    else if(name == "keyring") return 4113;
+    else if(name == "magickey") return 4114;
+    else if(name == "rustykey") return 4115;
+    else if(name == "clock") return 4172;
+    else if(name == "clockparts") return 4176;
+    else if(name == "axelandgears") return 4177;
+    else if(name == "gears") return 4180;
+    else if(name == "hinge") return 4182;
+    else if(name == "sextant") return 4184;
+    else if(name == "sextantparts") return 4186;
+    else if(name == "sticks") return 4188;
+    else if(name == "springs") return 4190;
+    else if(name == "driedflowers1") return 3132;
+    else if(name == "driedflowers2") return 3134;
+    else if(name == "driedonions") return 3136;
+    else if(name == "driedherbs") return 3138;
+    else if(name == "kindling") return 3553;
+    else if(name == "bandage") return 3817;
+    else if(name == "mortarpestle") return 3739;
+    else if(name == "emptyjar") return 4101;
+    else if(name == "emptybottle") return 3854;
+    else if(name == "recallrune") return 7956;
+    else if(name == "refreshpotion") return 3851;
+    else if(name == "agilitypotion") return 3848;
+    else if(name == "nightsightpotion") return 3846;
+    else if(name == "healpotion") return 3852;
+    else if(name == "strengthpotion") return 3849;
+    else if(name == "poisonpotion") return 3850;
+    else if(name == "sleeppotion") return 3847;
+    else if(name == "explosionpotion") return 3853;
+    else if(name == "scrollblank") return 3827;
+    else if(name == "scrollreactivearmor") return 7981;
+    else if(name == "scrollclumsy") return 7982;
+    else if(name == "scrollcreatefood") return 7983;
+    else if(name == "scrollfeeblemind") return 7984;
+    else if(name == "scrollheal") return 7985;
+    else if(name == "scrollmagicarrow") return 7986;
+    else if(name == "scrollnightsight") return 7987;
+    else if(name == "scrollweaken") return 7988;
+    else if(name == "scrollagility") return 7989;
+    else if(name == "scrollcunning") return 7990;
+    else if(name == "scrollcure") return 7991;
+    else if(name == "scrollharm") return 7992;
+    else if(name == "scrollmagictrap") return 7993;
+    else if(name == "scrollmagicuntrap") return 7994;
+    else if(name == "scrollprotection") return 7995;
+    else if(name == "scrollstrength") return 7996;
+    return 0;
+}
+
+function int getItemIDByNameBlock7(string name)
+{
+    if(name == "scrollbless") return 7997;
+    else if(name == "scrollfireball") return 7998;
+    else if(name == "scrollmagiclock") return 7999;
+    else if(name == "scrollpoison") return 8000;
+    else if(name == "scrolltelekenesis") return 8001;
+    else if(name == "scrollteleport") return 8002;
+    else if(name == "scrollunlock") return 8003;
+    else if(name == "scrollwallofstone") return 8004;
+    else if(name == "scrollarchcure") return 8005;
+    else if(name == "scrollarchprotection") return 8006;
+    else if(name == "scrollcurse") return 8007;
+    else if(name == "scrollfirefield") return 8008;
+    else if(name == "scrollgreaterheal") return 8009;
+    else if(name == "scrolllightning") return 8010;
+    else if(name == "scrollmanadrain") return 8011;
+    else if(name == "scrollrecall") return 8012;
+    else if(name == "scrollbladespirits") return 8013;
+    else if(name == "scrolldispelfield") return 8014;
+    else if(name == "scrollincognito") return 8015;
+    else if(name == "scrollmagicreflection") return 8016;
+    else if(name == "scrollmindblast") return 8017;
+    else if(name == "scrollparalyze") return 8018;
+    else if(name == "scrollpoisonfield") return 8019;
+    else if(name == "scrollsummoncreature") return 8020;
+    else if(name == "scrolldispel") return 8021;
+    else if(name == "scrollenergybolt") return 8022;
+    else if(name == "scrollexplosion") return 8023;
+    else if(name == "scrollinvisibility") return 8024;
+    else if(name == "scrollmark") return 8025;
+    else if(name == "scrollmasscurse") return 8026;
+    else if(name == "scrollparalyzefield") return 8027;
+    else if(name == "scrollreveal") return 8028;
+    else if(name == "scrollchainlightning") return 8029;
+    else if(name == "scrollenergyfield") return 8030;
+    else if(name == "scrollflamestrike") return 8031;
+    else if(name == "scrollgatetravel") return 8032;
+    else if(name == "scrollmanavampire") return 8033;
+    else if(name == "scrollmassdispel") return 8034;
+    else if(name == "scrollmeteorstorm") return 8035;
+    else if(name == "scrollpolymorph") return 8036;
+    else if(name == "scrollearthquake") return 8037;
+    else if(name == "scrollenergyvortex") return 8038;
+    else if(name == "scrollresurrection") return 8039;
+    else if(name == "scrollsummonairelemental") return 8040;
+    else if(name == "scrollsummondaemon") return 8041;
+    else if(name == "scrollsummonearthelemental") return 8042;
+    else if(name == "scrollsummonfireelemental") return 8043;
+    else if(name == "scrollsummonwaterelemental") return 8044;
+    else if(name == "batwing") return 3960;
+    else if(name == "blackmoor") return 3961;
+    else if(name == "blackpearlreagent") return 3962;
+    else if(name == "bloodmossreagent") return 3963;
+    else if(name == "bloodspawn") return 3964;
+    else if(name == "bloodvial") return 3965;
+    else if(name == "boneitem") return 3966;
+    else if(name == "brimstone") return 3967;
+    else if(name == "daemonboneitem") return 3968;
+    else if(name == "fertiledirt") return 3969;
+    else if(name == "dragonblooditem") return 3970;
+    else if(name == "executionerscap") return 3971;
+    return 0;
+}
+
+function int getItemIDByNameBlock8(string name)
+{
+    if(name == "garlic") return 3972;
+    else if(name == "ginseng") return 3973;
+    else if(name == "mandrakeroot") return 3974;
+    else if(name == "eyeofnewt") return 3975;
+    else if(name == "nightshade") return 3976;
+    else if(name == "obsidian") return 3977;
+    else if(name == "pigiron") return 3978;
+    else if(name == "pumice") return 3979;
+    else if(name == "sulfurousash") return 3980;
+    else if(name == "spidersilk") return 3981;
+    else if(name == "serpentscale") return 3982;
+    else if(name == "volcanicash") return 3983;
+    else if(name == "deadwood") return 3984;
+    else if(name == "wormheart") return 3985;
+    else if(name == "rawcotton") return 3577;
+    else if(name == "cottonplant") return 3153;
+    else if(name == "rettedflax") return 6812;
+
+    else if(name == "rawwool") return 3576;
+    else if(name == "ballofyarn") return 3613;
+    else if(name == "ballofyarn2") return 3614;
+    else if(name == "ballofyarn3") return 3615;
+    else if(name == "thread") return 4000;
+    else if(name == "boltofcloth") return 3995;
+    else if(name == "boltofcloth2") return 3996;
+    else if(name == "boltofcloth3") return 3990;
+    else if(name == "boltofcloth4") return 3991;
+    else if(name == "foldedcloth1") return 5985;
+    else if(name == "foldedcloth2") return 5986;
+    else if(name == "foldedcloth3") return 5987;
+    else if(name == "foldedcloth4") return 5988;
+    else if(name == "sewingkit") return 3997;
+    else if(name == "scissors") return 3998;
+    else if(name == "penandink") return 4032;
+    else if(name == "smallblankbook") return 4081;
+    else if(name == "largeblankbook") return 4082;
+    else if(name == "smallpubbook") return 4080;
+    else if(name == "largepubbook") return 4079;
+    else if(name == "dyebowl") return 4009;
+    else if(name == "dyetub") return 4011;
+    else if(name == "hairdye") return 3839;
+    else if(name == "cutleather") return 4200;
+    else if(name == "cutleather2") return 4199;
+    else if(name == "cutleather3") return 4225;
+    else if(name == "cutleather") return 4226;
+    else if(name == "pilehides") return 4216;
+    else if(name == "furhide") return 4598;
+    else if(name == "darkfurhide") return 4596;
+    else if(name == "drum") return 3740;
+    else if(name == "tambourine") return 3741;
+    else if(name == "largeharp") return 3761;
+    return 0;
+}
+
+function int getItemIDByNameBlock9(string name)
+{
+    if(name == "lyre") return 3762;
+else if(name == "lute") return 3763;
+else if(name == "chisels") return 4134;
+else if(name == "dovetailsaw") return 4137;
+else if(name == "hammer") return 4138;
+else if(name == "mouldingplane") return 4140;
+else if(name == "nails") return 4142;
+else if(name == "jointingplane") return 4144;
+else if(name == "smoothingplane") return 4146;
+else if(name == "saw") return 4148;
+else if(name == "lumber") return 7127;
+else if(name == "drawknife") return 4324;
+else if(name == "log") return 7133;
+else if(name == "palette") return 4033;
+else if(name == "froe") return 4325;
+else if(name == "scorp") return 4326;
+else if(name == "inshave") return 4327;
+else if(name == "anvil") return 4015;
+else if(name == "forge") return 4017;
+else if(name == "copperingot") return 7139;
+else if(name == "copperwire") return 6265;
+else if(name == "goldingot") return 7145;
+else if(name == "goldwire") return 6264;
+else if(name == "ironingot2") return 7151; // decorative
+else if(name == "ironwire") return 6262;
+else if(name == "silveringot") return 7157;
+else if(name == "silverwire") return 6263;
+else if(name == "forgedmetal") return 4024;
+else if(name == "bracelet") return 4230;
+else if(name == "ring") return 4234;
+else if(name == "beads") return 4235;
+else if(name == "earrings") return 4231;
+else if(name == "necklace1") return 4229;
+else if(name == "starsapphire") return 3855;
+else if(name == "emerald") return 3856;
+else if(name == "sapphire") return 3857;
+else if(name == "ruby") return 3859;
+else if(name == "citrine") return 3861;
+else if(name == "amethyst") return 3862;
+else if(name == "tourmaline") return 3864;
+else if(name == "amber") return 3877;
+else if(name == "diamond") return 3878;
+else if(name == "gem1") return 3855;
+else if(name == "gem2") return 3856;
+else if(name == "gem3") return 3857;
+else if(name == "gem4") return 3858;
+return 0;
+
+}
+
+function int getItemIDByNameBlock10(string name)
+{
+    if(name == "gem5") return 3859;
+    else if(name == "gem6") return 3860;
+    else if(name == "gem7") return 3861;
+    else if(name == "gem8") return 3862;
+    else if(name == "gem9") return 3863;
+    else if(name == "gem10") return 3864;
+    else if(name == "gem11") return 3865;
+    else if(name == "gem12") return 3866;
+    else if(name == "gem13") return 3867;
+    else if(name == "gem14") return 3868;
+    else if(name == "gem15") return 3869;
+    else if(name == "gem16") return 3870;
+    else if(name == "gem17") return 3871;
+    else if(name == "gem18") return 3872;
+    else if(name == "gem19") return 3873;
+    else if(name == "gem20") return 3874;
+    else if(name == "gem21") return 3875;
+    else if(name == "gem22") return 3876;
+    else if(name == "gem23") return 3877;
+    else if(name == "gem24") return 3878;
+    else if(name == "gem25") return 3879;
+    else if(name == "gem26") return 3880;
+    else if(name == "gem27") return 3881;
+    else if(name == "gem28") return 3882;
+    else if(name == "gem29") return 3883;
+    else if(name == "gem30") return 3884;
+    else if(name == "gem31") return 3835;
+    else if(name == "gem32") return 3836;
+    else if(name == "gem33") return 3837;
+    else if(name == "gem34") return 3838;
+    else if(name == "cookiemix") return 4159;
+    else if(name == "dough") return 2590;
+    else if(name == "loafbread1") return 4155;
+    else if(name == "loafbread2") return 4156;
+    else if(name == "frenchbread") return 2444;
+    else if(name == "cookieplate") return 5644;
+    else if(name == "bakedpie") return 4161;
+    else if(name == "cake") return 2537;
+    else if(name == "muffin") return 2538;
+    else if(name == "pancookies") return 5643;
+    else if(name == "honeyobj") return 2540;
+    else if(name == "pizza") return 4160;
+    else if(name == "cheese1") return 2430;
+    else if(name == "cheese") return 2430;
+    else if(name == "bacon") return 2424;
+    else if(name == "chickenleg1") return 5639;
+    else if(name == "chickenleg") return 5639;
+    else if(name == "cookedmutton") return 5642;
+    else if(name == "cookedchickleg") return 5640;
+    else if(name == "cookedbird") return 2487;
+    else if(name == "ham") return 2515;
+    else if(name == "muttonleg") return 5641;
+    else if(name == "rawbird") return 2489;
+    else if(name == "rawribs") return 2545;
+    else if(name == "cookedribs") return 2546;
+    else if(name == "sausages") return 2497;
+    else if(name == "beefcarcass") return 6257;
+    else if(name == "beefcarcass2") return 6258;
+    else if(name == "othercarcass") return 6259;
+    else if(name == "othercarcass2") return 6260;
+    return 0;
+}
+
+function int getItemIDByNameBlock11(string name)
+{
+    if(name == "roastpig") return 2491;
+else if(name == "bowlcarrots") return 5625;
+else if(name == "bowlcorn") return 5626;
+else if(name == "bowllettuce") return 5627;
+else if(name == "bowlpeas") return 5628;
+else if(name == "bowlpotatoes") return 5634;
+else if(name == "bowlstew") return 5636;
+else if(name == "bowltomatosoup") return 5638;
+else if(name == "bundleofgrain") return 3894;
+else if(name == "headofcabbage") return 3196;
+else if(name == "cantelope") return 3194;
+else if(name == "carrotobj") return 3192;
+else if(name == "corn") return 3202;
+else if(name == "fresheggs") return 2485;
+else if(name == "gourd") return 3174;
+else if(name == "headoflettuce") return 3184;
+else if(name == "melon") return 3189;
+else if(name == "onionobj") return 3182;
+else if(name == "pumpkin") return 3180;
+else if(name == "squash") return 3187;
+else if(name == "turnip") return 3386;
+else if(name == "watermelon") return 3165;
+else if(name == "cropcarrot") return 3190;
+else if(name == "croplettuce") return 3185;
+else if(name == "croponion") return 3183;
+else if(name == "dicecup") return 4007;
+else if(name == "backgammon") return 4013;
+else if(name == "alepitcher") return 8085;
+else if(name == "ciderpitcher") return 8087;
+else if(name == "glasspitcher") return 4086;
+else if(name == "glasspitcher3") return 2471;
+else if(name == "liquorpitcher") return 8089;
+else if(name == "milkpitcher") return 2544;
+else if(name == "winepitcher") return 8091;
+else if(name == "waterpitcher") return 8093;
+else if(name == "waterpitcher3") return 4088;
+else if(name == "waterpitcher4") return 4089;
+else if(name == "alebottle") return 2463;
+else if(name == "winebottle") return 2503;
+else if(name == "liquorbottle") return 2459;
+else if(name == "ciderjug") return 2504;
+else if(name == "dates") return 5927;
+else if(name == "peach") return 5932;
+else if(name == "pear") return 5933;
+else if(name == "lemon") return 5928;
+else if(name == "lime") return 5930;
+return 0;
+
+}
+
+function int getItemIDByNameBlock12(string name)
+{
+    if(name == "grapes") return 2513;
+    else if(name == "apple") return 2512;
+    else if(name == "banana") return 5919;
+    else if(name == "coconut") return 5926;
+    else if(name == "fishsteak") return 2426;
+    else if(name == "fishingpole") return 3519;
+    else if(name == "fishingpole2") return 3520;
+    else if(name == "smallfish1") return 3542;
+    else if(name == "smallfish2") return 3543;
+    else if(name == "bigfish1") return 2508;
+    else if(name == "bigfish2") return 2509;
+    else if(name == "bigfish3") return 2510;
+    else if(name == "bigfish4") return 2511;
+    else if(name == "bigbarrel") return 3703;
+    else if(name == "smallkeg") return 3711;
+    else if(name == "metalchest") return 3648;
+    else if(name == "metalchest2") return 3649;
+    else if(name == "metalchest3") return 3708;
+    else if(name == "metalchest4") return 2475;
+    else if(name == "ironore3") return 6583;
+    else if(name == "metalore2") return 6584;
+    else if(name == "ironore") return 6585;
+    else if(name == "metalore4") return 6586;
+    else if(name == "bedroll") return 2649;
+    else if(name == "armoir") return 2641;
+    else if(name == "armoir2") return 2637;
+    else if(name == "armoir3") return 2643;
+    else if(name == "armoir4") return 2639;
+    else if(name == "bench") return 2860;
+    else if(name == "bench2") return 2861;
+    else if(name == "chair") return 2906;
+    else if(name == "chair2") return 2907;
+    else if(name == "chair3") return 2908;
+    else if(name == "chair4") return 2909;
+    else if(name == "chair5") return 2902;
+    else if(name == "chair6") return 2903;
+    else if(name == "chair7") return 2904;
+    else if(name == "chair8") return 2905;
+    else if(name == "chair9") return 2894;
+    else if(name == "chair10") return 2895;
+    else if(name == "chair11") return 2896;
+    else if(name == "chair12") return 2897;
+    else if(name == "chair13") return 2898;
+    else if(name == "chair14") return 2899;
+    else if(name == "chair15") return 2900;
+    else if(name == "chair16") return 2901;
+    else if(name == "chair17") return 2862;
+    else if(name == "chair18") return 2863;
+    else if(name == "chair19") return 2910;
+    else if(name == "chair20") return 2864;
+    else if(name == "chair21") return 2865;
+    else if(name == "crate") return 3646;
+    else if(name == "crate2") return 3647;
+    else if(name == "crate3") return 3644;
+    else if(name == "largecrate") return 3644;
+    else if(name == "largecrate2") return 3645;
+    else if(name == "mediumcrate") return 3646;
+    else if(name == "mediumcrate2") return 3647;
+    else if(name == "shelf") return 2718;
+    else if(name == "shelf2") return 2717;
+    return 0;
+}
+
+function int getItemIDByNameBlock13(string name)
+{
+    if(name == "smallcrate") return 3710;
+    else if(name == "smallcrate2") return 2473;
+    else if(name == "stool") return 2910;
+    else if(name == "stool2") return 2602;
+    else if(name == "studdedchest") return 5083;
+    else if(name == "crystalofcom") return 7885;
+    return 0;
+}
+
+function int getItemIDByName(string name)
+{
+    int id = getItemIDByNameBlock1(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock2(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock3(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock4(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock5(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock6(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock7(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock8(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock9(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock10(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock11(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock12(name);
+    if(id != 0) return id;
+    id = getItemIDByNameBlock13(name);
+    return 0;
+}
+
+trigger online()
+{
+  if(isGameMaster(this))
+  {
+    attachScript(this, "runuogm");
+  }
+  return 1;
+}
+
+// Handle [* commands
+trigger speech<"[*">(obj speaker, string arg)
+{
+  if(!isGameMaster(speaker)) return 1;
+
+  if(speaker != this) return 0;
+
+  list args;
+  split(args, arg);
+  int argcount = numInList(args);
+  if(argcount < 1) return 1;
+
+  command = args[0];
+
+  int value;
+  int needobj = 0;
+  needloc = 0;
+  string modifier;
+  string msg;
+
+  if(command == "set")
+  {
+    if(argcount < 3) {
+      systemMessage(speaker, "Usage: [set <modifier> <value>]");
+      return 1;
+    }
+    modifier = args[1];
+    value = strtoi(args[2]);
+    if(modifier == "str") {
+      if(value < 0 || value > 9000) {
+        systemMessage(speaker, "Strength must be between 0 and 9000.");
+        return 1;
+      }
+      statToSet = 0;
+      statValue = value;
+      needobj = 1;
+      systemMessage(speaker, "Select a target to set str to " + value + ".");
+    }
+    else if(modifier == "dex") {
+      if(value < 0 || value > 9000) {
+        systemMessage(speaker, "Dexterity must be between 0 and 9000.");
+        return 1;
+      }
+      statToSet = 1;
+      statValue = value;
+      needobj = 1;
+      systemMessage(speaker, "Select a target to set dex to " + value + ".");
+    }
+    else if(modifier == "int") {
+      if(value < 0 || value > 9000) {
+        systemMessage(speaker, "Intelligence must be between 0 and 9000.");
+        return 1;
+      }
+      statToSet = 2;
+      statValue = value;
+      needobj = 1;
+      systemMessage(speaker, "Select a target to set int to " + value + ".");
+    }
+    else if(modifier == "hue") {
+      theinteger1 = value;
+      needobj = 1;
+      systemMessage(speaker, "Select a target to set hue to " + value + ".");
+    }
+    else if(modifier == "item") {
+      theinteger1 = value;
+      command = "add";
+      needloc = 1;
+      systemMessage(speaker, "Select a location to add item " + value + ".");
+    }
+    else if(modifier == "amount") {
+      theinteger1 = value;
+      command = "setamount";
+      needobj = 1;
+      systemMessage(speaker, "Select an item to set its amount to " + value + ".");
+    }
+    else {
+      msg = "Unknown modifier: ";
+      concat(msg, modifier);
+      systemMessage(speaker, msg);
+      return 1;
+    }
+  }
+  else if(command == "refresh")
+  {
+    needobj = 1;
+    systemMessage(speaker, "Select a target to refresh.");
+  }
+  else if(command == "add")
+  {
+    if(argcount < 2) {
+        systemMessage(speaker, "Usage: [add <itemid|itemname> [amount]]");
+        return 1;
+    }
+    string itemarg = args[1];
+    int amount = 1; // Default to 1
+    if(argcount >= 3) {
+        amount = strtoi(args[2]);
+        if(amount < 1) amount = 1;
+    }
+    int itemid = strtoi(itemarg); // Try to parse as number
+    if(itemid >= 100000) {
+        systemMessage(speaker, "Use [spawn <templateid>] for templates.");
+        return 1;
+    }
+    if(itemid == 0) {
+        // Not a number, try as name
+        itemid = getItemIDByName(itemarg);
+        if(itemid == 0) {
+            systemMessage(speaker, "Unknown item name or id: " + itemarg);
+            return 1;
+        }
+    }
+    theinteger1 = itemid;
+    statValue = amount;
+    command = "add";
+    needloc = 1;
+    systemMessage(speaker, "Select a location to add " + itemarg + " (" + itemid + ") amount " + amount + ".");
+  }
+  else if(command == "get")
+  {
+    if(argcount >= 2)
+    {
+      if(args[1] == "info")
+      {
+        command = "getinfo";
+        needobj = 1;
+        systemMessage(speaker, "Select an item to get info about known variables.");
+      }
+      else if(args[1] == "itemid")
+      {
+        command = "getitemid";
+        needobj = 1;
+        systemMessage(speaker, "Select an item to get its itemid.");
+      }
+      else if(args[1] == "hue")
+      {
+        command = "gethue";
+        needobj = 1;
+        systemMessage(speaker, "Select an item to get its hue.");
+      }
+      else
+      {
+        msg = "Unknown get modifier: ";
+        concat(msg, args[1]);
+        systemMessage(speaker, msg);
+        return 1;
+      }
+    }
+    else
+    {
+      systemMessage(speaker, "Usage: [get itemid], [get hue], or [get info]");
+      return 1;
+    }
+  }
+  else if(command == "set")
+  {
+    if(argcount >= 2)
+    {
+      if(args[1] == "amount")
+      {
+        value = strtoi(args[2]);
+        command = "setamount";
+        theinteger1 = value;
+        needobj = 1;
+        systemMessage(speaker, "Select an item to set its amount to " + value + ".");
+      }
+      else if(args[1] == "str")
+      {
+        if(value < 0 || value > 9000) {
+          systemMessage(speaker, "Strength must be between 0 and 9000.");
+          return 1;
+        }
+        statToSet = 0;
+        statValue = value;
+        needobj = 1;
+        systemMessage(speaker, "Select a target to set str to " + value + ".");
+      }
+      else if(args[1] == "dex")
+      {
+        if(value < 0 || value > 9000) {
+          systemMessage(speaker, "Dexterity must be between 0 and 9000.");
+          return 1;
+        }
+        statToSet = 1;
+        statValue = value;
+        needobj = 1;
+        systemMessage(speaker, "Select a target to set dex to " + value + ".");
+      }
+      else if(args[1] == "int")
+      {
+        if(value < 0 || value > 9000) {
+          systemMessage(speaker, "Intelligence must be between 0 and 9000.");
+          return 1;
+        }
+        statToSet = 2;
+        statValue = value;
+        needobj = 1;
+        systemMessage(speaker, "Select a target to set int to " + value + ".");
+      }
+      else if(args[1] == "hue")
+      {
+        theinteger1 = value;
+        needobj = 1;
+        systemMessage(speaker, "Select a target to set hue to " + value + ".");
+      }
+      else if(args[1] == "item")
+      {
+        theinteger1 = value;
+        command = "add";
+        needloc = 1;
+        systemMessage(speaker, "Select a location to add item " + value + ".");
+      }
+      else 
+      {
+        msg = "Unknown set modifier: ";
+        concat(msg, args[1]);
+        systemMessage(speaker, msg);
+        return 1;
+      }
+    }
+    else {
+      systemMessage(speaker, "Usage: [set <modifier> <value>]");
+      return 1;
+    }
+  }
+  else if(command == "setamount")
+  {
+    needobj = 1;
+    theinteger1 = value;
+    systemMessage(speaker, "Select an item to set its amount to " + value + ".");
+  }
+  else if(command == "help")
+  {
+    systemMessage(speaker, "Modern GM Commands:");
+    systemMessage(speaker, "add <itemid|itemname> <amount>");
+    systemMessage(speaker, "delete");
+    systemMessage(speaker, "get info");
+    systemMessage(speaker, "get hue");
+    systemMessage(speaker, "get itemid");
+    systemMessage(speaker, "GMBody");
+    systemMessage(speaker, "help");
+    systemMessage(speaker, "move");
+    systemMessage(speaker, "m <command> - multi command modifier");
+    systemMessage(speaker, "refresh");
+    systemMessage(speaker, "remove");
+    systemMessage(speaker, "save");
+    systemMessage(speaker, "set amount <value>");
+    systemMessage(speaker, "set dex <value>");
+    systemMessage(speaker, "set hue <value>");
+    systemMessage(speaker, "set int <value>");
+    systemMessage(speaker, "set str <value>");
+    systemMessage(speaker, "tele <x> <y> <z>");
+    systemMessage(speaker, "bank");
+    systemMessage(speaker, "resurrect / res");
+    systemMessage(speaker, "kill");
+    systemMessage(speaker, "invul / noinvul");
+    systemMessage(speaker, "getflags");
+    systemMessage(speaker, "hide / unhide");
+    systemMessage(speaker, "speedboost");
+    systemMessage(speaker, "normalspeed");
+    systemMessage(speaker, "getmovementtype");
+    return 1;
+  }
+  else if(command == "delete")
+  {
+    needobj = 1;
+    systemMessage(speaker, "Select an object to delete.");
+  }
+  else if(command == "remove")
+  {
+    needobj = 1;
+    systemMessage(speaker, "Select an object to delete.");
+  }
+  else if(command == "move")
+  {
+    systemMessage(speaker, "Select the location to move an object to.");
+    command = "move_getloc";
+    targetLoc(speaker, this);
+    return 1;
+  }
+  else if(command == "save")
+  {
+    systemMessage(speaker, "Saving world...");
+    doSCommand(this, "]save");
+    return 1;
+  }
+  else if(command == "GMBody")
+  {
+      // Make GM invulnerable
+      makeInvulnerable(speaker);
+      // Set STR, DEX, INT to 100
+      setRealStat(speaker, 0, 100);
+      setRealStat(speaker, 1, 100);
+      setRealStat(speaker, 2, 100);
+
+      // Refresh HP, Mana, and Fatigue to max after stat changes
+      setCurHP(speaker, getMaxHP(speaker));
+      setCurMana(speaker, getMaxMana(speaker));
+      setCurFatigue(speaker, getMaxFatigue(speaker));
+
+      // Set all skills to 100
+      for(int k = 0; k <= 45; k++)
+      {
+          setSkillLevel(speaker, k, 1000);
+      }
+
+      // Store hair and beard info before deletion
+      int hairID = 0;
+      int hairHue = 0;
+      int beardID = 0;
+      int beardHue = 0;
+      list eq;
+      getEquipment(eq, speaker);
+      for(int gmBodyIdx = 0; gmBodyIdx < numInList(eq); gmBodyIdx++)
+      {
+          obj gmBodyObj = eq[gmBodyIdx];
+          int slot = getEquipSlot(gmBodyObj);
+          if(slot == 11)
+          {
+              hairID = getObjType(gmBodyObj);
+              hairHue = getHue(gmBodyObj);
+          }
+          else if(slot == 16)
+          {
+              beardID = getObjType(gmBodyObj);
+              beardHue = getHue(gmBodyObj);
+          }
+      }
+
+      // Delete all equipped items
+      for(int gmBodyDelIdx = 0; gmBodyDelIdx < numInList(eq); gmBodyDelIdx++)
+      {
+          obj gmBodyDelObj = eq[gmBodyDelIdx];
+          deleteObject(gmBodyDelObj);
+      }
+
+      // Delete the backpack and all its contents
+      obj pack = getBackpack(speaker);
+      if(pack != NULL())
+      {
+          deleteObject(pack);
+      }
+
+      // Add and equip a new empty backpack (3701, slot 21)
+      obj newpack = requestCreateObjectIn(3701, speaker);
+      equipObj(newpack, speaker, 21); // Backpack slot
+
+      // Re-add hair and beard if they existed
+      if(hairID != 0)
+      {
+          obj newHair = requestCreateObjectIn(hairID, speaker);
+          setHue(newHair, hairHue);
+          equipObj(newHair, speaker, 11);
+      }
+      if(beardID != 0)
+      {
+          obj newBeard = requestCreateObjectIn(beardID, speaker);
+          setHue(newBeard, beardHue);
+          equipObj(newBeard, speaker, 16);
+      }
+
+      // Confirm backpack is equipped
+      pack = getBackpack(speaker);
+      if(pack == newpack)
+      {
+          // Backpack equipped
+      }
+      else
+      {
+          // Backpack not equipped
+      }
+
+      // Step 1: Create a fully loaded spellbook in the GM's backpack
+      pack = getBackpack(speaker);
+      if(pack == NULL())
+      {
+          pack = requestCreateObjectIn(3701, speaker);
+      }
+
+      // Create the empty spellbook
+      obj book = requestCreateObjectIn(3834, pack);
+
+      // Fill it with every scroll from the 3501 template
+      createGlobalObjectIn(SCROLL_BIRDS_EYE,        book);
+      createGlobalObjectIn(SCROLL_CLUMSY,           book);
+      createGlobalObjectIn(SCROLL_CREATE_FOOD,      book);
+      createGlobalObjectIn(SCROLL_FEEBLEMIND,       book);
+      createGlobalObjectIn(SCROLL_HEAL,             book);
+      createGlobalObjectIn(SCROLL_MAGIC_ARROW,      book);
+      createGlobalObjectIn(SCROLL_NIGHT_SIGHT,      book);
+      createGlobalObjectIn(SCROLL_WEAKEN,           book);
+      createGlobalObjectIn(SCROLL_AGILITY,          book);
+      createGlobalObjectIn(SCROLL_CUNNING,          book);
+      createGlobalObjectIn(SCROLL_CURE,             book);
+      createGlobalObjectIn(SCROLL_HARM,             book);
+      createGlobalObjectIn(SCROLL_MAGIC_TRAP,       book);
+      createGlobalObjectIn(SCROLL_MAGIC_UNTRAP,     book);
+      createGlobalObjectIn(SCROLL_PROTECTION,       book);
+      createGlobalObjectIn(SCROLL_STRENGTH,         book);
+      createGlobalObjectIn(SCROLL_BLESS,            book);
+      createGlobalObjectIn(SCROLL_FIREBALL,         book);
+      createGlobalObjectIn(SCROLL_MAGIC_LOCK,       book);
+      createGlobalObjectIn(SCROLL_POISON,           book);
+      createGlobalObjectIn(SCROLL_TELEKENESIS,      book);
+      createGlobalObjectIn(SCROLL_TELEPORT,         book);
+      createGlobalObjectIn(SCROLL_UNLOCK,           book);
+      createGlobalObjectIn(SCROLL_WALL_OF_STONE,    book);
+      createGlobalObjectIn(SCROLL_ARCHCURE,         book);
+      createGlobalObjectIn(SCROLL_ARCHPROTECTION,   book);
+      createGlobalObjectIn(SCROLL_CURSE,            book);
+      createGlobalObjectIn(SCROLL_FIRE_FIELD,       book);
+      createGlobalObjectIn(SCROLL_GREATER_HEAL,     book);
+      createGlobalObjectIn(SCROLL_LIGHTNING,        book);
+      createGlobalObjectIn(SCROLL_MANADRAIN,        book);
+      createGlobalObjectIn(SCROLL_RECALL,           book);
+      createGlobalObjectIn(SCROLL_BLADE_SPIRITS,    book);
+      createGlobalObjectIn(SCROLL_DISPEL_FIELD,     book);
+      createGlobalObjectIn(SCROLL_INCOGNITO,        book);
+      createGlobalObjectIn(SCROLL_MAGIC_REFLECTION, book);
+      createGlobalObjectIn(SCROLL_MIND_BLAST,       book);
+      createGlobalObjectIn(SCROLL_PARALYZE,         book);
+      createGlobalObjectIn(SCROLL_POISON_FIELD,     book);
+      createGlobalObjectIn(SCROLL_SUMMON_CREATURE,  book);
+      createGlobalObjectIn(SCROLL_DISPEL,           book);
+      createGlobalObjectIn(SCROLL_ENERGY_BOLT,      book);
+      createGlobalObjectIn(SCROLL_EXPLOSION,        book);
+      createGlobalObjectIn(SCROLL_INVISIBILITY,     book);
+      createGlobalObjectIn(SCROLL_MARK,             book);
+      createGlobalObjectIn(SCROLL_MASS_CURSE,       book);
+      createGlobalObjectIn(SCROLL_PARALYZE_FIELD,   book);
+      createGlobalObjectIn(SCROLL_REVEAL,           book);
+      createGlobalObjectIn(SCROLL_CHAIN_LIGHTNING,  book);
+      createGlobalObjectIn(SCROLL_ENERGY_FIELD,     book);
+      createGlobalObjectIn(SCROLL_FLAMESTRIKE,      book);
+      createGlobalObjectIn(SCROLL_GATE_TRAVEL,      book);
+      createGlobalObjectIn(SCROLL_MANA_VAMPIRE,     book);
+      createGlobalObjectIn(SCROLL_MASS_DISPEL,      book);
+      createGlobalObjectIn(SCROLL_METEOR_STORM,     book);
+      createGlobalObjectIn(SCROLL_POLYMORPH,        book);
+      createGlobalObjectIn(SCROLL_EARTHQUAKE,       book);
+      createGlobalObjectIn(SCROLL_ENERGY_VORTEX,    book);
+      createGlobalObjectIn(SCROLL_RESURRECTION,     book);
+      createGlobalObjectIn(SCROLL_SUMMON_AIR_ELEMENTAL,   book);
+      createGlobalObjectIn(SCROLL_SUMMON_DAEMON,          book);
+      createGlobalObjectIn(SCROLL_SUMMON_EARTH_ELEMENTAL, book);
+      createGlobalObjectIn(SCROLL_SUMMON_FIRE_ELEMENTAL,  book);
+      createGlobalObjectIn(SCROLL_SUMMON_WATER_ELEMENTAL, book);
+
+      // Create robe first but don't equip yet
+      obj gmrobe = requestCreateObjectIn(8271, speaker);
+      setHue(gmrobe, 1);
+
+      // Create and equip GM boots (5899)
+      obj gmboots = requestCreateObjectIn(5899, speaker);
+      equipObj(gmboots, speaker, getEquipSlot(gmboots));
+
+      // Re-equip robe last to correct draw order
+      equipObj(gmrobe, speaker, getEquipSlot(gmrobe));
+
+      // Set the DM hidden (persistent invisibility)
+      setHidden(speaker, 1);
+
+      systemMessage(speaker, "All stats/skills set, gear wiped, GM Robe, boots, spellbook, and new backpack equipped.");
+
+      return 1;
+  }
+  else if(command == "move")
+  {
+    systemMessage(speaker, "Select the location to move an object to.");
+    command = "move_getloc";
+    targetLoc(speaker, this);
+    return 1;
+  }
+  else if(command == "save")
+  {
+    systemMessage(speaker, "Saving world...");
+    doSCommand(this, "]save");
+    return 1;
+  }
+  else if(command == "bank")
+  {
+    systemMessage(speaker, "Target a player whose bank you want to open.");
+    setObjVar(speaker, "gm_banktarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "resurrect")
+  {
+    systemMessage(speaker, "Target a player or corpse to resurrect.");
+    setObjVar(speaker, "gm_resurrecttarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "res")
+  {
+    systemMessage(speaker, "Target a player or corpse to resurrect.");
+    setObjVar(speaker, "gm_resurrecttarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "kill")
+  {
+    systemMessage(speaker, "Target a player or creature to kill.");
+    setObjVar(speaker, "gm_killtarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "noinvul")
+  {
+    systemMessage(speaker, "Target a player or creature to make vulnerable.");
+    setObjVar(speaker, "gm_noinvultarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "invul")
+  {
+    systemMessage(speaker, "Target a player or creature to make invulnerable.");
+    setObjVar(speaker, "gm_invultarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "getflags")
+  {
+    systemMessage(speaker, "Target an item or mobile to get its status flags.");
+    setObjVar(speaker, "gm_getflagstarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "hide")
+  {
+    systemMessage(speaker, "Target a player or creature to make always hidden.");
+    setObjVar(speaker, "gm_alwayshiddentarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "unhide")
+  {
+    systemMessage(speaker, "Target a player or creature to remove always hidden.");
+    setObjVar(speaker, "gm_alwaysunhiddentarget", 1);
+    targetObj(speaker, this);
+    command = "";
+    return 1;
+  }
+  else if(command == "speedboost")
+  {
+    setMovementType(speaker, 7); // 1 = run (test if this increases speed)
+    systemMessage(speaker, "Speed boost enabled! (Run mode)");
+    return 1;
+  }
+  else if(command == "normalspeed")
+  {
+    setMovementType(speaker, 0); // 0 = normal
+    systemMessage(speaker, "Speed reset to normal.");
+    return 1;
+  }
+  else if(command == "getmovementtype")
+  {
+    int mt = getMovementType(speaker);
+    systemMessage(speaker, "Your current movement type is: " + mt);
+    return 1;
+  }
+
+  
+
+  return 1;
+}
+
+trigger targetobj(obj user, obj usedon)
+{
+  if(getObjVar(user, "gm_banktarget") == 1)
+  {
+    removeObjVar(user, "gm_banktarget");
+    if(isPlayer(usedon))
+    {
+      openBank(usedon);
+      systemMessage(user, "Opened bank box for " + getName(usedon));
+    }
+    else
+    {
+      systemMessage(user, "That is not a player.");
+    }
+    return 1;
+  }
+  if(getObjVar(user, "gm_resurrecttarget") == 1)
+  {
+    removeObjVar(user, "gm_resurrecttarget");
+    if(isDead(usedon))
+    {
+      resurrect(usedon, 1);
+      systemMessage(user, "Resurrected " + getName(usedon));
+    }
+    else
+    {
+      systemMessage(user, "That target is not dead.");
+    }
+    return 1;
+  }
+  if(getObjVar(user, "gm_killtarget") == 1)
+  {
+    removeObjVar(user, "gm_killtarget");
+    string targetName = getName(usedon);
+    if(targetName == "") targetName = "the target";
+    doDamage(user, usedon, 99999);
+    systemMessage(user, "You have killed " + targetName + ".");
+    return 1;
+  }
+  if(getObjVar(user, "gm_noinvultarget") == 1)
+  {
+    removeObjVar(user, "gm_noinvultarget");
+    makeVulnerable(usedon);
+    systemMessage(user, "Made " + getName(usedon) + " vulnerable.");
+    return 1;
+  }
+  if(getObjVar(user, "gm_invultarget") == 1)
+  {
+    removeObjVar(user, "gm_invultarget");
+    makeInvulnerable(usedon);
+    systemMessage(user, "Made " + getName(usedon) + " invulnerable.");
+    return 1;
+  }
+  if(getObjVar(user, "gm_getflagstarget") == 1)
+  {
+    removeObjVar(user, "gm_getflagstarget");
+    string tname = getName(usedon);
+    if(tname == "") tname = "(unnamed)";
+    systemMessage(user, "==== Status Flags for " + tname + " ====");
+    int flag01 = getMobFlag(usedon, 0x01); // Invulnerable
+    int flag02 = getMobFlag(usedon, 0x02); // Frozen
+    int flag04 = getMobFlag(usedon, 0x04); // Squelched
+    if(flag01)
+      systemMessage(user, "Invulnerable (0x01): Yes");
+    else
+      systemMessage(user, "Invulnerable (0x01): No");
+    if(flag02)
+      systemMessage(user, "Frozen (0x02): Yes");
+    else
+      systemMessage(user, "Frozen (0x02): No");
+    if(flag04)
+      systemMessage(user, "Squelched (0x04): Yes");
+    else
+      systemMessage(user, "Squelched (0x04): No");
+    if(isMobile(usedon)) {
+      if(isHidden(usedon))
+        systemMessage(user, "isHidden: Yes");
+      else
+        systemMessage(user, "isHidden: No");
+      if(isInvulnerable(usedon))
+        systemMessage(user, "isInvulnerable: Yes");
+      else
+        systemMessage(user, "isInvulnerable: No");
+    }
+    systemMessage(user, "======================");
+    return 1;
+  }
+  if(getObjVar(user, "gm_alwayshiddentarget") == 1)
+  {
+    removeObjVar(user, "gm_alwayshiddentarget");
+    setObjVar(usedon, "gm_always_hidden", 1);
+    setHidden(usedon, 1);
+    systemMessage(user, "Set always hidden on " + getName(usedon));
+    return 1;
+  }
+  if(getObjVar(user, "gm_alwaysunhiddentarget") == 1)
+  {
+    removeObjVar(user, "gm_alwaysunhiddentarget");
+    removeObjVar(usedon, "gm_always_hidden");
+    setHidden(usedon, 0);
+    systemMessage(user, "Removed always hidden from " + getName(usedon));
+    return 1;
+  }
+  int itemid;
+  loc place;
+  int hue;
+  obj newitem;
+  if(usedon == NULL()) return 0;
+  if(command == "refresh")
+  {
+    if(isDead(usedon)) {
+      resurrect(usedon, 1);
+    }
+    setCurHP(usedon, getMaxHP(usedon));
+    setCurMana(usedon, getMaxMana(usedon));
+    setCurFatigue(usedon, getMaxFatigue(usedon));
+    systemMessage(user, "You have refreshed " + objToStr(usedon) + ".");
+  }
+  else if(command == "set")
+  {
+    if(theinteger1 != 0) {
+      setHue(usedon, theinteger1);
+      systemMessage(user, "Set hue to " + theinteger1 + " on " + objToStr(usedon));
+      theinteger1 = 0;
+    } else {
+      setRealStat(usedon, statToSet, statValue);
+      systemMessage(user, "Set stat " + statToSet + " to " + statValue + " on " + objToStr(usedon));
+    }
+  }
+  else if(command == "getitemid")
+  {
+    itemid = getObjType(usedon);
+    systemMessage(user, "ItemID (type) of target: " + itemid);
+  }
+  else if(command == "gethue")
+  {
+    hue = getHue(usedon);
+    systemMessage(user, "Hue of target: " + hue);
+  }
+  else if(command == "setamount")
+  {
+    int currentAmount = getValue(usedon);
+    hue = getHue(usedon);
+
+    if(currentAmount == theinteger1)
+    {
+        setHue(usedon, hue);
+        systemMessage(user, "Amount already set to " + theinteger1 + ".");
+        theinteger1 = 0;
+        command = "";
+        return 1;
+    }
+
+    obj container = containedBy(usedon);
+    int typeid = getObjType(usedon);
+
+    if(isValid(container) && (isContainer(container) || isPlayer(container)))
+    {
+        deleteObject(usedon);
+        obj tempBag = createGlobalObjectIn(0x0E76, container); // dummy bag
+        newitem = createGlobalObjectIn(typeid, tempBag);
+        setHue(newitem, hue);
+
+        if(theinteger1 > 1)
+        {
+            requestAddQuantity(newitem, theinteger1 - 1);
+        }
+
+        putObjContainer(newitem, container);
+        deleteObject(tempBag);
+
+        systemMessage(user, "Set amount in container to " + theinteger1 + ".");
+    }
+    else
+    {
+        // Location (show world coordinates, inline, no variable declarations)
+        systemMessage(user, "Location: (" + getX(getLocation(usedon)) + ", " + getY(getLocation(usedon)) + ", " + getZ(getLocation(usedon)) + ")");
+        deleteObject(usedon);
+        newitem = createGlobalObjectAt(typeid, getLocation(usedon));
+        setHue(newitem, hue);
+        if(theinteger1 > 1)
+        {
+            requestAddQuantity(newitem, theinteger1 - 1);
+        }
+        systemMessage(user, "Set world item amount to " + theinteger1 + ".");
+    }
+
+    theinteger1 = 0;
+    command = "";
+    return 1;
+  }
+  else if(command == "getinfo")
+  {
+    systemMessage(user, "==== Object Info ====");
+    // Basic object info
+    systemMessage(user, "Name: " + getName(usedon));
+    systemMessage(user, "ItemID (Type): " + getObjType(usedon));
+    systemMessage(user, "Hue: " + getHue(usedon));
+    systemMessage(user, "Value/Amount: " + getValue(usedon));
+    systemMessage(user, "Quantity: " + getQuantity(usedon));
+    systemMessage(user, "Weight: " + getWeight(usedon));
+    string isContainerStr;
+    if(isContainer(usedon))
+        isContainerStr = "Yes";
+    else
+        isContainerStr = "No";
+    systemMessage(user, "IsContainer: " + isContainerStr);
+    string isEquippedStr;
+    if(isEquipped(usedon))
+        isEquippedStr = "Yes";
+    else
+        isEquippedStr = "No";
+    systemMessage(user, "IsEquipped: " + isEquippedStr);
+    if(isEquipped(usedon)) {
+        int slot = getEquipSlot(usedon);
+        systemMessage(user, "Equipped Slot: " + slot);
+    } else {
+        systemMessage(user, "Equipped Slot: Not equipped");
+    }
+    // Location (show world coordinates, inline, no variable declarations)
+    systemMessage(user, "Location: (" + getX(getLocation(usedon)) + ", " + getY(getLocation(usedon)) + ", " + getZ(getLocation(usedon)) + ")");
+    // Mobile-specific info
+    if(isMobile(usedon)) {
+        systemMessage(user, "Mobile Detected:");
+        systemMessage(user, "STR: " + getStrength(usedon));
+        systemMessage(user, "HP: " + getCurHP(usedon) + "/" + getMaxHP(usedon));
+        systemMessage(user, "Mana: " + getCurMana(usedon) + "/" + getMaxMana(usedon));
+        systemMessage(user, "Fatigue: " + getCurFatigue(usedon) + "/" + getMaxFatigue(usedon));
+        string isPlayerStr;
+        if(isPlayer(usedon))
+            isPlayerStr = "Yes";
+        else
+            isPlayerStr = "No";
+        systemMessage(user, "IsPlayer: " + isPlayerStr);
+        string isNPCStr;
+        if(isNPC(usedon))
+            isNPCStr = "Yes";
+        else
+            isNPCStr = "No";
+        systemMessage(user, "IsNPC: " + isNPCStr);
+        systemMessage(user, "Karma: " + getKarma(usedon));
+        systemMessage(user, "Fame: " + getFame(usedon));
+        systemMessage(user, "Notoriety: " + getNotoriety(usedon));
+        // Show Hunger (Satiety)
+        int hunger = getSatiety(usedon);
+        systemMessage(user, "Hunger: " + hunger);
+        // Top 7 Skills (UOSL-safe, true selection)
+        list skillVals;
+        list skillNames;
+        for(int si = 0; si <= 45; si++) {
+            int sval = getSkillLevelReal(usedon, si);
+            if(sval > 0) {
+                appendToList(skillVals, sval);
+                appendToList(skillNames, getSkillName(si));
+            }
+        }
+        systemMessage(user, "Top 7 Skills:");
+        for(int j = 0; j < 7 && numInList(skillVals) > 0; j++) {
+            int maxIdx = 0;
+            int maxVal = skillVals[0];
+            for(int k = 1; k < numInList(skillVals); k++) {
+                if(skillVals[k] > maxVal) {
+                    maxVal = skillVals[k];
+                    maxIdx = k;
+                }
+            }
+            string maxName = skillNames[maxIdx];
+            systemMessage(user, "  " + maxName + ": " + (maxVal / 10));
+            removeItem(skillVals, maxIdx);
+            removeItem(skillNames, maxIdx);
+        }
+        // List equipped items for mobiles
+        list eqList;
+        getEquipment(eqList, usedon);
+        if(numInList(eqList) > 0) {
+            systemMessage(user, "Equipped Items:");
+            for(int eqI = 0; eqI < numInList(eqList); eqI++) {
+                obj eqItem = eqList[eqI];
+                int eqSlot = getEquipSlot(eqItem);
+                systemMessage(user, "  " + getName(eqItem) + " (Slot: " + eqSlot + ")");
+            }
+        } else {
+            systemMessage(user, "No items equipped.");
+        }
+    }
+    // Try to list common ObjVars
+    list keys;
+    appendToList(keys, "amount");
+    appendToList(keys, "quantity");
+    appendToList(keys, "stack");
+    appendToList(keys, "charges");
+    appendToList(keys, "count");
+    appendToList(keys, "template");
+    appendToList(keys, "skill");
+    appendToList(keys, "cooldown");
+    appendToList(keys, "spawned");
+    appendToList(keys, "creator");
+    appendToList(keys, "customname");
+    int found = 0;
+    for(int i = 0; i < numInList(keys); i++) {
+        string key = keys[i];
+        if(hasObjVar(usedon, key)) {
+            string val = getObjVar(usedon, key);
+            systemMessage(user, "ObjVar: " + key + " = " + val);
+            found = 1;
+        }
+    }
+    if(!found) {
+        systemMessage(user, "No common ObjVars found.");
+    }
+    systemMessage(user, "======================");
+    command = "";
+    return 1;
+  }
+  else if(command == "delete")
+  {
+    deleteObject(usedon);
+    systemMessage(user, "Object deleted.");
+    command = "";
+    return 1;
+  }
+  else if(command == "remove")
+  {
+    deleteObject(usedon);
+    systemMessage(user, "Object deleted.");
+    command = "";
+    return 1;
+  }
+  else if(command == "move_getobj")
+  {
+    place = getObjVar(user, "moveTargetLoc");
+    if(isInMap(place))
+    {
+      itemid = getObjType(usedon);
+      int serial = objtoint(usedon);
+      loc origLoc = getLocation(usedon);
+      int origX = getX(origLoc);
+      int origY = getY(origLoc);
+      int origZ = getZ(origLoc);
+      int x = getX(place);
+      int y = getY(place);
+      int z = getZ(place);
+      loc newPlace = place;
+      if(canExistAt(newPlace, getObjType(usedon), 0))
+      {
+        dropObj(usedon, newPlace);
+        systemMessage(user, "Object moved to (" + x + "," + y + "," + z + ")");
+      }
+      else
+      {
+        systemMessage(user, "Invalid location for this object.");
+      }
+    }
+    else
+    {
+      systemMessage(user, "Invalid location selected.");
+    }
+    removeObjVar(user, "moveTargetLoc");
+    command = "";
+    return 1;
+  }
+  else if(command == "tele")
+  {
+    systemMessage(user, "Select a location to teleport to.");
+    command = "teleport";
+    targetLoc(user, this);
+    return 1;
+  }
+  else if(command == "invul")
+  {
+    makeInvulnerable(usedon);
+    systemMessage(user, "Target is now invulnerable.");
+    command = "";
+    return 1;
+  }
+  else if(command == "noinvul")
+  {
+    makeVulnerable(usedon);
+    systemMessage(user, "Target is now vulnerable.");
+    command = "";
+    return 1;
+  }
+  return 1;
+}
+
+trigger targetloc(obj user, loc place, int objtype)
+{
+  string msg;
+  string sval;
+  string lval;
+  if(!isInMap(place)) return 0;
+  if(command == "add" && theinteger1 != 0) {
+    obj newitem = createGlobalObjectAt(theinteger1, place);
+    msg = "Added item ";
+    concat(msg, strfromint(theinteger1));
+    concat(msg, " at location ");
+    lval = "(";
+    concat(lval, strfromint(getX(place)));
+    concat(lval, ",");
+    concat(lval, strfromint(getY(place)));
+    concat(lval, ",");
+    concat(lval, strfromint(getZ(place)));
+    concat(lval, ")");
+    concat(msg, lval);
+    if(statValue > 1) {
+      concat(msg, " with amount ");
+      concat(msg, strfromint(statValue));
+      requestAddQuantity(newitem, statValue - 1);
+    }
+    systemMessage(user, msg);
+    theinteger1 = 0;
+    statValue = 0;
+    command = "";
+    return 1;
+  }
+  else if(command == "move_getloc")
+  {
+    setObjVar(user, "moveTargetLoc", place);
+    systemMessage(user, "Now select the object to move.");
+    command = "move_getobj";
+    targetObj(user, this);
+    return 1;
+  }
+  return 1;
+}
+
+// Fallback attach on creation
+trigger creation()
+{
+    if(isGameMaster(this))
+    {
+        attachScript(this, "runuogm");
+    }
+    return 1;
+} 
